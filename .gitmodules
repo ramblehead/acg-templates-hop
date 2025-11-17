@@ -1,0 +1,3 @@
+[submodule "hop"]
+	path = hop
+	url = git@github.com:ramblehead/acg-templates.git
