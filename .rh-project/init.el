@@ -90,7 +90,8 @@
 
 (defun acg-templates-setup ()
   (when buffer-file-name
-    (let ((hop-outer (expand-file-name (rh-project-get-root))))
+    (let ((hop-outer (expand-file-name (rh-project-get-root)))
+          venv-bin-path venv-path project-root)
       (when hop-outer
         (setq venv-bin-path (acg-templates/lsp-python-deps-providers-path ""))
         (setq venv-path (directory-file-name (file-name-directory venv-bin-path)))
