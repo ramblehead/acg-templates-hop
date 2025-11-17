@@ -35,7 +35,7 @@
 
         runtimeLibs = with pkgs; [
           stdenv.cc.cc
-          glibc # libc, ld-linux, …
+          # glibc # libc, ld-linux, …
           # stdenv.cc.cc.lib # libstdc++, libgcc_s
           # zlib
           # openssl
