@@ -69,7 +69,7 @@
           };
         };
 
-        devShells.default = pkgs.mkShell rec {
+        devShells.default = pkgs.mkShell {
           packages = runtimePackages;
 
           # NIX_LD =
