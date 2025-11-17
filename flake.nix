@@ -26,6 +26,7 @@
 
         runtimePackages = with pkgs; [
           python
+          nodejs
           uv
           git
           typos
@@ -34,8 +35,8 @@
 
         runtimeLibs = with pkgs; [
           stdenv.cc.cc
+          glibc # libc, ld-linux, …
           # stdenv.cc.cc.lib # libstdc++, libgcc_s
-          # glibc # libc, ld-linux, …
           # zlib
           # openssl
           # libuuid
@@ -71,12 +72,13 @@
         devShells.default = pkgs.mkShell rec {
           packages = runtimePackages;
 
-          NIX_LD =
-            pkgs.lib.strings.trim
-            (builtins.readFile "${pkgs.stdenv.cc}/nix-support/dynamic-linker");
+          # NIX_LD =
+          #   pkgs.lib.strings.trim
+          #   (builtins.readFile "${pkgs.stdenv.cc}/nix-support/dynamic-linker");
+          NIX_LD = pkgs.stdenv.cc.bintools.dynamicLinker;
 
           NIX_LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath runtimeLibs;
-          LD_LIBRARY_PATH = NIX_LD_LIBRARY_PATH;
+          # LD_LIBRARY_PATH = NIX_LD_LIBRARY_PATH;
 
           shellHook = ''
             echo "''$(${pkgs.python}/bin/python --version)"
