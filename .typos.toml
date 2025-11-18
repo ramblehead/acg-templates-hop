@@ -1,2 +1,5 @@
 [default.extend-identifiers]
-allowIIFEs = "allowIIFEs"  # Allow "IFEs" as a valid word
+allowIIFEs = "allowIIFEs" # Allow "IFEs" as a valid word
+
+[files]
+extend-exclude = [".yarn"]

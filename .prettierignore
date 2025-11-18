@@ -1,0 +1,15 @@
+# Ignore node_modules and .yarn
+.yarn
+node_modules
+
+# Ignore build outputs
+dist
+build
+
+# Ignore specific file types
+*.min.js
+*.log
+
+# Ignore specific files
+flake.lock
+yarn.lock

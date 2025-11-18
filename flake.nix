@@ -26,8 +26,11 @@
 
         runtimePackages = with pkgs; [
           python
-          nodejs
           uv
+
+          nodejs
+          yarn
+
           git
           typos
           alejandra
@@ -62,6 +65,14 @@
                 settings = {
                   write = true; # Automatically fix typos
                   ignored-words = [];
+                };
+              };
+              prettier = {
+                enable = true; # Markdown & TS formatter & etc.
+                settings = {
+                  write = true; # Automatically format files
+                  binPath = "yarn prettier";
+                  configPath = "./prettier.config.js";
                 };
               };
               alejandra.enable = true; # Nix linter & formatter
