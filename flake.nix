@@ -26,6 +26,7 @@
 
         runtimePackages = with pkgs; [
           python
+          poetry
           uv
 
           nodejs
