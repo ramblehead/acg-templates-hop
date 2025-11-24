@@ -164,18 +164,18 @@
           (lsp-deferred))
 
          ((string-match-p "\\.toml\\'" buffer-file-name)
-          (prettier-mode 1))
+          (run-with-idle-timer 0 nil #'prettier-mode))
 
          ((string-match-p "\\.json\\'" buffer-file-name)
-          (prettier-mode 1))
+          (run-with-idle-timer 0 nil #'prettier-mode))
 
          ((string-match-p "\\.yml\\'\\|\\.yaml\\'" buffer-file-name)
-          (prettier-mode 1))
+          (run-with-idle-timer 0 nil #'prettier-mode))
 
          ((string-match-p "\\.js\\'" buffer-file-name)
-          (prettier-mode 1))
+          (run-with-idle-timer 0 nil #'prettier-mode))
 
          ((string-match-p "\\.md\\'" buffer-file-name)
-          (prettier-mode 1)))))))
+          (run-with-idle-timer 0 nil #'prettier-mode)))))))
 
 ;;; /b/}
