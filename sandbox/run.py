@@ -1,6 +1,23 @@
 #!/usr/bin/env python
 # Hey Emacs, this is -*- coding: utf-8; mode: python -*-
 
+# /// script
+# requires-python = "==3.14.*"
+#
+# dependencies = ["autocodegen"]
+#
+# [tool.uv.sources]
+# autocodegen = { path = "../hop/autocodegen", editable = true }
+#
+# [dependency-groups]
+# dev = [
+#   "black~=25.11.0",
+#   "basedpyright~=1.34.0",
+#   "ruff~=0.14.7",
+#   "ruff-lsp~=0.0.62",
+# ]
+# ///
+
 from pathlib import Path
 
 from autocodegen import Config, generate
