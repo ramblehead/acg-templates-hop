@@ -15,7 +15,7 @@ dependencies = ["mako~=1.2.4", "autocodegen"]
 # example-pkg = "example_pkg:main"
 
 [tool.uv.sources]
-autocodegen = { path = "../hop/autocodegen" }
+autocodegen = { path = "../hop/autocodegen", editable = true }
 
 [dependency-groups]
 dev = [
