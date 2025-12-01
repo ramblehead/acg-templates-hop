@@ -13,3 +13,4 @@ build
 # Ignore specific files
 flake.lock
 yarn.lock
+uv.lock
