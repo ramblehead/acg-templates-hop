@@ -78,7 +78,6 @@
           wayland
 
           # dbus
-
           # glibc # libc, ld-linux, ...
           # stdenv.cc.cc.lib # libstdc++, libgcc_s
           # zlib
