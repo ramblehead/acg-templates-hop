@@ -7,7 +7,7 @@
 # dependencies = ["autocodegen"]
 #
 # [tool.uv.sources]
-# autocodegen = { path = "../hop/autocodegen", editable = true }
+# autocodegen = { path = "../../../acg-templates-hop/hop/autocodegen", editable = true }
 #
 # [dependency-groups]
 # dev = [
@@ -22,21 +22,27 @@ from pathlib import Path
 
 from autocodegen import Config, generate
 
+
+
 if __name__ == "__main__":
     spath = Path(__file__)
-    project_name = spath.stem
-    project_parent = spath.parent.resolve(strict=True)
-    project_root = project_parent / f"{project_name}-test"
 
-    project_root.mkdir(exist_ok=True)
-    acg_root = (project_parent.parent / "hop" / "templates").resolve(
-        strict=True,
-    )
+    acg_templates = spath.parent.resolve(strict=True)
+    project_root = acg_templates.parent.resolve(strict=True)
+    project_name = project_root.stem
+
+    print(project_name)
+    print(project_root)
+    print(acg_templates)
 
     config = Config(
         project_name=project_name,
         project_root=project_root,
-        acg_root=acg_root,
+        acg_templates=acg_templates,
     )
 
-    generate(project_name, config)
+    generate("nix-hop--poetry-pyside", config)
+
+    config["project_root"] = project_root / "hop"
+
+    generate("poetry-pyside-starter", config)
