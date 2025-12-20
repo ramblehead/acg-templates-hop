@@ -22,7 +22,7 @@ from pathlib import Path
 import json
 
 import tomllib
-from autocodegen import Config, generate
+from autocodegen import TemplateConfig, generate
 
 if __name__ == "__main__":
     spath = Path(__file__)
@@ -42,10 +42,10 @@ if __name__ == "__main__":
     print(target_root)
     print(acg_templates)
 
-    config = Config(
+    config = TemplateConfig(
         project_name=project_name,
-        target_root=target_root,
         acg_templates=acg_templates,
+        target_root=target_root,
     )
 
     generate("nix-hop--poetry-pyside", config)
