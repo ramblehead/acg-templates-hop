@@ -19,30 +19,37 @@
 # ///
 
 from pathlib import Path
+import json
 
+import tomllib
 from autocodegen import Config, generate
-
-
 
 if __name__ == "__main__":
     spath = Path(__file__)
+    acg_templates = spath.parent
 
-    acg_templates = spath.parent.resolve(strict=True)
-    project_root = acg_templates.parent.resolve(strict=True)
-    project_name = project_root.stem
+    with open(acg_templates / "config.toml", "rb") as f:
+        xxx = tomllib.load(f)
+        print(json.dumps(xxx, indent=2))
+
+    # exit()
+
+    acg_templates = acg_templates.resolve(strict=True)
+    target_root = acg_templates.parent.resolve(strict=True)
+    project_name = target_root.stem
 
     print(project_name)
-    print(project_root)
+    print(target_root)
     print(acg_templates)
 
     config = Config(
         project_name=project_name,
-        project_root=project_root,
+        target_root=target_root,
         acg_templates=acg_templates,
     )
 
     generate("nix-hop--poetry-pyside", config)
 
-    config["project_root"] = project_root / "hop"
+    config["target_root"] = target_root / "hop"
 
     generate("poetry-pyside-starter", config)
