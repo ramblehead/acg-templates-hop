@@ -22,15 +22,26 @@ from pathlib import Path
 import json
 
 import tomllib
-from autocodegen import TemplateConfig, generate
+from autocodegen import ProjectConfig, TemplateConfig, generate
+
 
 if __name__ == "__main__":
     spath = Path(__file__)
     acg_templates = spath.parent
 
     with open(acg_templates / "config.toml", "rb") as f:
-        xxx = tomllib.load(f)
-        print(json.dumps(xxx, indent=2))
+        # project_config: ProjectConfig = cast(
+        #     ProjectConfig, cast(object, tomllib.load(f))
+        # )
+        # print(json.dumps(project_config, indent=2))
+        project_config = ProjectConfig.load(tomllib.load(f), acg_dir=acg_templates)
+        print(
+            json.dumps(
+                project_config.model_dump(mode="json"),
+                indent=2,
+                ensure_ascii=False,
+            )
+        )
 
     # exit()
 
@@ -43,9 +54,11 @@ if __name__ == "__main__":
     print(acg_templates)
 
     config = TemplateConfig(
-        project_name=project_name,
-        acg_templates=acg_templates,
-        target_root=target_root,
+        {
+            "project_name": project_name,
+            "acg_templates": acg_templates,
+            "target_root": target_root,
+        }
     )
 
     generate("nix-hop--poetry-pyside", config)
