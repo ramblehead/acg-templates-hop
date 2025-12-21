@@ -27,14 +27,14 @@ from autocodegen import ProjectConfig, TemplateConfig, generate
 
 if __name__ == "__main__":
     spath = Path(__file__)
-    acg_templates = spath.parent
+    acg_dir = spath.parent
 
-    with open(acg_templates / "config.toml", "rb") as f:
+    with open(acg_dir / "config.toml", "rb") as f:
         # project_config: ProjectConfig = cast(
         #     ProjectConfig, cast(object, tomllib.load(f))
         # )
         # print(json.dumps(project_config, indent=2))
-        project_config = ProjectConfig.load(tomllib.load(f), acg_dir=acg_templates)
+        project_config = ProjectConfig.load(tomllib.load(f), acg_dir=acg_dir)
         print(
             json.dumps(
                 project_config.model_dump(mode="json"),
@@ -45,18 +45,18 @@ if __name__ == "__main__":
 
     # exit()
 
-    acg_templates = acg_templates.resolve(strict=True)
-    target_root = acg_templates.parent.resolve(strict=True)
+    acg_dir = acg_dir.resolve(strict=True)
+    target_root = acg_dir.parent.resolve(strict=True)
     project_name = target_root.stem
 
     print(project_name)
     print(target_root)
-    print(acg_templates)
+    print(acg_dir)
 
     config = TemplateConfig(
         {
             "project_name": project_name,
-            "acg_templates": acg_templates,
+            "acg_templates": acg_dir,
             "target_root": target_root,
         }
     )
