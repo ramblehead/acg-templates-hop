@@ -30,10 +30,6 @@ if __name__ == "__main__":
     acg_dir = spath.parent
 
     with open(acg_dir / "config.toml", "rb") as f:
-        # project_config: ProjectConfig = cast(
-        #     ProjectConfig, cast(object, tomllib.load(f))
-        # )
-        # print(json.dumps(project_config, indent=2))
         project_config = ProjectConfig.load(tomllib.load(f), acg_dir=acg_dir)
         print(
             json.dumps(
@@ -43,24 +39,14 @@ if __name__ == "__main__":
             )
         )
 
-    acg_dir = acg_dir.resolve(strict=True)
-    target_root = acg_dir.parent.resolve(strict=True)
-    project_name = target_root.stem
+    # print(f"project_name = {project_config.autocodegen.project_name}")
+    # print(f"project_root = {project_config.autocodegen.project_root}")
+    # print(f"templates_root = {project_config.autocodegen.templates_root}")
 
-    print(project_name)
-    print(target_root)
-    print(acg_dir)
-
-    generate(
-        project_name=project_name,
-        template_name="nix-hop--poetry-pyside",
-        target_root=target_root,
-        templates_root=acg_dir,
-    )
-
-    generate(
-        project_name=project_name,
-        template_name="poetry-pyside-starter",
-        target_root=target_root / "hop",
-        templates_root=acg_dir,
-    )
+    for [name, config] in project_config.templates.items():
+        generate(
+            project_name=project_config.autocodegen.project_name,
+            template_name=name,
+            target_root=project_config.autocodegen.project_root / config.target_root,
+            templates_root=acg_dir,
+        )
