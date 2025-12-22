@@ -22,7 +22,7 @@ from pathlib import Path
 import json
 
 import tomllib
-from autocodegen import ProjectConfig, TemplateConfig, generate
+from autocodegen import ProjectConfig, generate
 
 
 if __name__ == "__main__":
@@ -43,8 +43,6 @@ if __name__ == "__main__":
             )
         )
 
-    # exit()
-
     acg_dir = acg_dir.resolve(strict=True)
     target_root = acg_dir.parent.resolve(strict=True)
     project_name = target_root.stem
@@ -53,16 +51,16 @@ if __name__ == "__main__":
     print(target_root)
     print(acg_dir)
 
-    config = TemplateConfig(
-        {
-            "project_name": project_name,
-            "acg_templates": acg_dir,
-            "target_root": target_root,
-        }
+    generate(
+        project_name=project_name,
+        template_name="nix-hop--poetry-pyside",
+        target_root=target_root,
+        templates_root=acg_dir,
     )
 
-    generate("nix-hop--poetry-pyside", config)
-
-    config["target_root"] = target_root / "hop"
-
-    generate("poetry-pyside-starter", config)
+    generate(
+        project_name=project_name,
+        template_name="poetry-pyside-starter",
+        target_root=target_root / "hop",
+        templates_root=acg_dir,
+    )
